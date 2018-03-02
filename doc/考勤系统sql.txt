@@ -1,0 +1,12 @@
+1.数据库设计
+
+1.用户信息表(userId,userName,passWord)
+2.部门信息表(depertmentId,depertmentName)
+3.角色信息表(roleId,roleName)--3种角色
+普通员工:可以进行打卡和查看
+部门经理-查看所管理员工的打卡情况
+管理员-进行普通员工，部门经理的账号生成，分配普通员工归属哪个部门
+4.用户关系表(userId,depertmentId,roleId)
+
+5.用户打卡签到表(userId,date,dateTime,dateTime)
+
