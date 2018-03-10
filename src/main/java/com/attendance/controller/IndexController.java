@@ -15,12 +15,12 @@ public class IndexController {
     @RequestMapping("/index")
     public ModelAndView index(){
 
-        return new ModelAndView("login/index");
+        return new ModelAndView("login/login");
     }
 
-    @RequestMapping("")
+    @RequestMapping("/login")
     public  ModelAndView index2(){
 
-        return new ModelAndView("login/index");
+        return new ModelAndView("login/login");
     }
 }
