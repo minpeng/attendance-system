@@ -41,7 +41,7 @@ public class UserController {
     public ResultVO createUserInfo(@Valid UserInfoForm userInfoForm,
                                    BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            logger.error("创建订单--参数不正确，userInfoForm={}", userInfoForm);
+            logger.error("创建用户--参数不正确，userInfoForm={}", userInfoForm);
             return ResultVOUtil.error("参数不正确");
         }
         UserInfo userInfo=new UserInfo();
