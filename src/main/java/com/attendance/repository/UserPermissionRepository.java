@@ -21,5 +21,5 @@ public interface UserPermissionRepository extends JpaRepository<UserPermission, 
                     "department_id =(SELECT department_id FROM t_user_permission WHERE role_id =2  AND user_id= ?1 LIMIT 1)" +
                     "AND t1.user_id =t2.id ORDER BY ?#{#pageable}) as t",
             nativeQuery = true)
-    Page<UserInfo> findUserInfoByManagerId (long id, Pageable pageable);
+    Page<?> findUserInfoByManagerId (long id, Pageable pageable);
 }

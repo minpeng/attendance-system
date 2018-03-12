@@ -38,7 +38,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
     @Override
-    public Page<UserInfo> findUserInfoByManagerId(long id, Pageable pageable) {
+    public Page<?> findUserInfoByManagerId(long id, Pageable pageable) {
         return userPermissionRepository.findUserInfoByManagerId(id,pageable);
     }
 }

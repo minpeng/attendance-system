@@ -31,7 +31,7 @@ public class ManagerController {
                                 @RequestParam(value = "size", defaultValue = "10") Integer size){
         long id=3L;
         Pageable pageable=new PageRequest(page,size);
-        Page<UserInfo> userInfos=userPermissionService.findUserInfoByManagerId(id,pageable);
+        Page<?> userInfos=userPermissionService.findUserInfoByManagerId(id,pageable);
         return ResultVOUtil.success(userInfos);
     }
 }

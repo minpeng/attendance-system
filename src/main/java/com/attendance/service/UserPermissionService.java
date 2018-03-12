@@ -16,5 +16,5 @@ public interface UserPermissionService {
     UserPermission update(UserPermission userPermission);
     Page<UserPermissionVO> findList(Pageable pageable);
 
-    Page<UserInfo> findUserInfoByManagerId(long id, Pageable pageable);
+    Page<?> findUserInfoByManagerId(long id, Pageable pageable);
 }
