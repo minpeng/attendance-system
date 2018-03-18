@@ -32,6 +32,7 @@ public class UserController {
     public ResultVO getUserInfoList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                     @RequestParam(value = "size", defaultValue = "10") Integer size){
 
+        //TODO 加入是不是当前用户的判断
         PageRequest request = new PageRequest(page - 1, size);
         Page<UserInfo> userInfos = userInfoService.findList(request);
         return  ResultVOUtil.success(userInfos);
