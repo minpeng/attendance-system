@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class IndexController {
 
-    @RequestMapping("/index")
+    @RequestMapping("")
     public ModelAndView index(){
 
         return new ModelAndView("login/login");
@@ -20,6 +20,11 @@ public class IndexController {
 
     @RequestMapping("/login")
     public  ModelAndView index2(){
+
+        return new ModelAndView("login/login");
+    }
+    @RequestMapping("/index")
+    public  ModelAndView index3(){
 
         return new ModelAndView("login/login");
     }

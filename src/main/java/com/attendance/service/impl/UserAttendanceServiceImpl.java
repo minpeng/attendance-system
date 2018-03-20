@@ -26,8 +26,17 @@ public class UserAttendanceServiceImpl implements UserAttendanceService {
     }
 
     @Override
-    public Page<UserAttendanceVO> findList(Pageable pageable) {
+    public Page<?> findList(Pageable pageable) {
         return userAttendanceReposiory.findList(pageable);
+    }
+
+    public UserAttendanceServiceImpl() {
+        super();
+    }
+
+    @Override
+    public Page<?> findList(Long userId, Pageable pageable) {
+        return userAttendanceReposiory.findListByUserId(userId,pageable);
     }
 
     @Override

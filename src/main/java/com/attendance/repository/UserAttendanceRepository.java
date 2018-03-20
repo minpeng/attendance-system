@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 
@@ -16,15 +17,22 @@ import java.util.Date;
 public interface UserAttendanceRepository extends JpaRepository<UserAttendance, Long> {
 
 
-    @Query(value = "SELECT  t1.user_name ,t2.date_time,t2.sign_in_time,t2.sign_off_time " +
+    @Query(value = "SELECT  t1.user_name ,t2.date_time, t2.sign_in_time,t2.sign_off_time " +
             "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.id=t2.user_id ORDER BY ?#{#pageable}",
-            countQuery = "SELECT count(*) FROM (SELECT  t1.user_name ,t2.date_time,t2.sing_in_time,t2.sing_off_time " +
-                    "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.status=1 and t1.id=t2.user_id) as t",
+            countQuery = "SELECT count(*) FROM (SELECT  t1.user_name ,t2.date_time,t2.sign_in_time,t2.sign_off_time " +
+                    "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.id=t2.user_id) as t",
             nativeQuery = true)
-    Page<UserAttendanceVO> findList(Pageable pageable);
+    Page<?> findList(Pageable pageable);
 
 
     UserAttendance findByUserId(Long userId);
 
     UserAttendance findByUserIdAndDateTime(Long userId,Date dateTime);
+
+    @Query(value = "SELECT  t1.user_name ,t2.date_time, t2.sign_in_time,t2.sign_off_time " +
+            "FROM t_user_attendance as t2 ,t_user_info as t1 WHERE t1.id=t2.user_id and t1.id=:userId ORDER BY ?#{#pageable}",
+            countQuery = "SELECT count(*) FROM (SELECT  t1.user_name ,t2.date_time,t2.sign_in_time,t2.sign_off_time " +
+                    "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.id=t2.user_id and t1.id=?1) as t",
+            nativeQuery = true)
+    Page<?> findListByUserId(@Param("userId") Long userId, Pageable pageable);
 }

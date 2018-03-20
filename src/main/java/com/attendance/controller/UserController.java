@@ -7,6 +7,7 @@ import com.attendance.service.UserInfoService;
 import com.attendance.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,8 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by pengm on 2018/3/2.
@@ -29,55 +33,76 @@ public class UserController {
     private UserInfoService userInfoService;
 
     @RequestMapping("/user/list")
-    public ResultVO getUserInfoList(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                    @RequestParam(value = "size", defaultValue = "10") Integer size){
+    public ModelAndView getUserInfoList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                        @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                        Map<String,Object> map){
 
         //TODO 加入是不是当前用户的判断
         PageRequest request = new PageRequest(page - 1, size);
         Page<UserInfo> userInfos = userInfoService.findList(request);
-        return  ResultVOUtil.success(userInfos);
+        map.put("userInfoPage", userInfos);
+        map.put("currentPage", page);
+        map.put("size", size);
+        return  new ModelAndView("/user/list",map);
     }
 
-    @RequestMapping("/user/createUser")
-    public ResultVO createUserInfo(@Valid UserInfoForm userInfoForm,
-                                   BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            logger.error("创建用户--参数不正确，userInfoForm={}", userInfoForm);
-            return ResultVOUtil.error("参数不正确");
+    @RequestMapping("/user/index")
+    public ModelAndView createUserInfo(@RequestParam(value = "id", required = false) Long id,
+                                       Map<String, Object> map) {
+       if (id != null) {
+           UserInfo userInfo=userInfoService.findOne(id);
+           map.put("userInfo", userInfo);
+        }
+        return new ModelAndView("user/index", map);
+    }
+    @RequestMapping("/user/save")
+    public ModelAndView saveUserInfo(@Valid UserInfoForm userInfoForm,
+                                     BindingResult bindingResult,
+                                     Map<String,Object> map){
+        if (bindingResult.hasErrors()){
+            map.put("msg", "保存用户信息失败");
+            map.put("url", "/user/list");
+            return  new ModelAndView("/common/error",map);
         }
         UserInfo userInfo=new UserInfo();
-        userInfo.setUserName(userInfoForm.getUserName());
-        userInfo.setPassword(userInfoForm.getPassword());
-        //TODO
-        //userInfo.setCreateUser();
-        userInfoService.insert(userInfo);
-        return ResultVOUtil.success();
+        BeanUtils.copyProperties(userInfoForm, userInfo);
+
+        userInfoService.save(userInfo);
+
+        map.put("msg", "保存用户信息成功");
+        map.put("url", "/user/list");
+        return  new ModelAndView("/common/success",map);
     }
 
     @RequestMapping("/user/editUser")
-    public ResultVO editUserInfo(@RequestParam(value = "password") String password,
-                                 @RequestParam(value = "id") Long id){
-        if(id<1){
-            return  ResultVOUtil.error();
+    public ModelAndView editUserInfo(@Valid UserInfoForm userInfoForm,
+                                     BindingResult bindingResult,
+                                     Map<String,Object> map){
+        if (bindingResult.hasErrors()){
+            map.put("msg", "编辑用户信息失败");
+            map.put("url", "/user/list");
+            return  new ModelAndView("/common/error",map);
         }
         UserInfo userInfo=new UserInfo();
-        userInfo.setId(id);
+        BeanUtils.copyProperties(userInfoForm, userInfo);
 
-        if (!StringUtils.isEmpty(password)){
-            userInfo.setPassword(password);
+        userInfoService.save(userInfo);
 
-        }
-        userInfoService.updatePassword(password,id);
-
-        return  ResultVOUtil.success();
+        map.put("msg", "编辑用户信息成功");
+        map.put("url", "/user/list");
+        return  new ModelAndView("/common/success",map);
     }
 
     @RequestMapping("/user/deleteUser")
-    public ResultVO deleteUserInfo(@RequestParam(value = "id") Long id){
+    public ModelAndView deleteUserInfo(@RequestParam(value = "id") Long id,Map<String,Object> map){
         if(id<1){
-            return  ResultVOUtil.error();
+            map.put("msg", "删除用户信息失败");
+            map.put("url", "/user/list");
+            return  new ModelAndView("/common/error",map);
         }
         userInfoService.delete(id);
-        return ResultVOUtil.success();
+        map.put("msg", "删除用户信息成功");
+        map.put("url", "/user/list");
+        return  new ModelAndView("/common/success",map);
     }
 }

@@ -7,14 +7,18 @@ import com.attendance.vo.UserPermissionVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Created by pengmin on 2018/3/11.
  */
 public interface UserPermissionService {
 
-    UserPermission insert(UserPermission userPermission);
-    UserPermission update(UserPermission userPermission);
-    Page<UserPermissionVO> findList(Pageable pageable);
+    Page<?> findList(Pageable pageable);
 
     Page<?> findUserInfoByManagerId(long id, Pageable pageable);
+
+    void save(UserPermission userPermission);
+
+    List<?> findOneByUserId(Long userId);
 }

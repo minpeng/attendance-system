@@ -27,9 +27,12 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long>  {
 
 
         @Query(value = "SELECT  t1.user_name ,t2.date_time,t2.sing_in_time,t2.sing_off_time " +
-            "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.status=1 and t1.id=t2.user_id ORDER BY ?#{#pageable}",
+            "FROM t_user_info as t1,t_user_attendance as t2 WHERE  t1.id=t2.user_id ORDER BY ?#{#pageable}",
             countQuery = "SELECT count(*) FROM (SELECT  t1.user_name ,t2.date_time,t2.sing_in_time,t2.sing_off_time " +
-                    "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.status=1 and t1.id=t2.user_id) as t",
+                    "FROM t_user_info as t1,t_user_attendance as t2 WHERE t1.id=t2.user_id) as t",
             nativeQuery = true)
         Page<UserAttendanceVO> findList(Pageable pageable);
+
+    UserInfo findAllByUserName(String userName);
+
 }

@@ -9,9 +9,15 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserInfoService {
     Page<UserInfo> findList(Pageable pageable);
-    UserInfo insert(UserInfo userInfo);
-    UserInfo update(UserInfo userInfo);
+
     void delete(Long id);
     int updatePassword(String password, Long id);
 
+    UserInfo findOne(Long id);
+
+    void save(UserInfo userInfo);
+
+    UserInfo findUserByUserNameAndPassword(String userName, String password);
+
+    UserInfo findUserByUserName(String userName);
 }

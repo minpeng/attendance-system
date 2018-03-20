@@ -8,20 +8,30 @@ import javax.validation.constraints.NotNull;
  */
 public class UserPermissionForm {
 
-    @Min(value=1)
-    private long userId;
+    private Long id;
 
     @Min(value=1)
-    private long roleId;
+    private Long userId;
 
     @Min(value=1)
-    private int departmentId;
+    private Long roleId;
+
+    @Min(value=1)
+    private Integer departmentId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -29,7 +39,7 @@ public class UserPermissionForm {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -37,7 +47,7 @@ public class UserPermissionForm {
         return departmentId;
     }
 
-    public void setDepartmentId(int departmentId) {
+    public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
 }

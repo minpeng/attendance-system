@@ -2,13 +2,14 @@ package com.attendance.vo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by pengmin on 2018/3/10.
  */
 
-public class UserAttendanceVO {
+public class UserAttendanceVO  implements Serializable{
 
     private String userName;
 
@@ -17,6 +18,16 @@ public class UserAttendanceVO {
     private Date signInTime;
 
     private Date signOffTime;
+
+    public UserAttendanceVO() {
+    }
+
+    public UserAttendanceVO(String userName, Date dateTime, Date signInTime, Date signOffTime) {
+        this.userName = userName;
+        this.dateTime = dateTime;
+        this.signInTime = signInTime;
+        this.signOffTime = signOffTime;
+    }
 
     public String getUserName() {
         return userName;

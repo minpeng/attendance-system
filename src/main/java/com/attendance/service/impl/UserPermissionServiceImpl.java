@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by pengmin on 2018/3/11.
  */
@@ -22,23 +24,24 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         super();
     }
 
-    @Override
-    public UserPermission update(UserPermission userPermission) {
-        return userPermissionRepository.save(userPermission);
-    }
 
     @Override
-    public UserPermission insert(UserPermission userPermission) {
-        return userPermissionRepository.save(userPermission);
-    }
-
-    @Override
-    public Page<UserPermissionVO> findList(Pageable pageable) {
-        return null;
+    public Page<?> findList(Pageable pageable) {
+        return userPermissionRepository.findList(pageable);
     }
 
     @Override
     public Page<?> findUserInfoByManagerId(long id, Pageable pageable) {
         return userPermissionRepository.findUserInfoByManagerId(id,pageable);
+    }
+
+    @Override
+    public List<?> findOneByUserId(Long userId) {
+        return userPermissionRepository.findOneByUserId(userId);
+    }
+
+    @Override
+    public void save(UserPermission userPermission) {
+        userPermissionRepository.save(userPermission);
     }
 }

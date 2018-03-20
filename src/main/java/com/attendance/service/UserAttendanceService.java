@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public interface UserAttendanceService {
     /** 查询列表. */
-    Page<UserAttendanceVO> findList(Pageable pageable);
-
+    Page<?> findList(Pageable pageable);
+    Page<?> findList(Long userId,Pageable pageable);
     UserAttendance findByUserId(long userId);
 
     UserAttendance findByUserIdAndDateTime(long userId,Date dateTime);

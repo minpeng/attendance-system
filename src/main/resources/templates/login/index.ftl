@@ -14,7 +14,7 @@
 		<div class="logo png"></div>
 		<div class="input">
 			<div class="log">
-                <form role="form" method="post" action="/login">
+                <form role="form" method="post" action="/login/loginSubmit">
 					<div class="name">
 						<label>用户名</label><input type="text" class="text" id="userName" placeholder="用户名" name="userName" tabindex="1">
 					</div>

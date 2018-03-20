@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="t_user_permission")
-@DynamicUpdate //动态跟新时间
 public class UserPermission {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

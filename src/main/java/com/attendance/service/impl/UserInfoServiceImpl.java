@@ -26,16 +26,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoRepository.findAll(pageable);
     }
 
-
-
     @Override
-    public UserInfo insert(UserInfo userInfo) {
-        return userInfoRepository.save(userInfo);
+    public UserInfo findUserByUserNameAndPassword(String userName, String password) {
+        return userInfoRepository.findAllByUserNameAndPassword(userName,password);
     }
 
     @Override
-    public UserInfo update(UserInfo userInfo) {
-        return userInfoRepository.save(userInfo);
+    public UserInfo findUserByUserName(String userName) {
+        return userInfoRepository.findAllByUserName(userName);
     }
 
     @Override
@@ -46,5 +44,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public int updatePassword(String password, Long id) {
        return userInfoRepository.updatePassword(password,id);
+    }
+
+    @Override
+    public UserInfo findOne(Long id) {
+        return userInfoRepository.findOne(id);
+    }
+
+    @Override
+    public void save(UserInfo userInfo) {
+        userInfoRepository.save(userInfo);
     }
 }

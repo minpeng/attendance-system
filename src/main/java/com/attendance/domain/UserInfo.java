@@ -12,7 +12,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name="t_user_info")
-@DynamicUpdate //动态跟新时间
 public class UserInfo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,17 +19,11 @@ public class UserInfo {
 
     private String userName;
 
-    private   String password;
+    private String password;
 
-    private String createUser;
+    private Integer age;
 
-    private Date createTime;
-
-    private String modifyUser;
-
-    private Date modifyTime;
-
-
+    private String sex;
 
     public Long getId() {
         return id;
@@ -48,7 +41,7 @@ public class UserInfo {
         this.userName = userName;
     }
 
-    @JsonIgnore
+   // @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -57,39 +50,20 @@ public class UserInfo {
         this.password = password;
     }
 
-    public String getCreateUser() {
-        return createUser;
+
+    public Integer getAge() {
+        return age;
     }
 
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getSex() {
+        return sex;
     }
 
-    public void setCreateTime(Date creatTime) {
-        this.createTime = creatTime;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
-
-    public String getModifyUser() {
-        return modifyUser;
-    }
-
-    public void setModifyUser(String modifyUser) {
-        this.modifyUser = modifyUser;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-
-
-
 }
