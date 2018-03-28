@@ -1,0 +1,38 @@
+package com.attendance.controller;
+
+import com.attendance.common.utils.ResultVOUtil;
+import com.attendance.domain.UserAttendance;
+import com.attendance.service.UserAttendanceService;
+import com.attendance.vo.ResultVO;
+import com.attendance.vo.UserAttendanceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Created by pengm on 2018/3/28.
+ */
+@RestController
+public class TestController {
+    private  final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    UserAttendanceService userAttendanceService;
+
+    @RequestMapping("/test/list")
+
+    public ResultVO attendanceList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                   @RequestParam(value = "size", defaultValue = "10") Integer size){
+        PageRequest request = new PageRequest(page - 1, size);
+        Page<UserAttendanceInterface> list=userAttendanceService.findAttendanceInterfaceList(request);
+
+        return ResultVOUtil.success(list);
+    }
+}

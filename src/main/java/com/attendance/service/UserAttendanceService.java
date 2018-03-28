@@ -1,8 +1,10 @@
 package com.attendance.service;
 
 import com.attendance.domain.UserAttendance;
+import com.attendance.vo.UserAttendanceInterface;
 import com.attendance.vo.UserAttendanceVO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
@@ -19,4 +21,6 @@ public interface UserAttendanceService {
     UserAttendance findByUserIdAndDateTime(long userId,Date dateTime);
 
     UserAttendance insert(UserAttendance userAttendance);
+
+    Page<UserAttendanceInterface> findAttendanceInterfaceList(Pageable pageable);
 }

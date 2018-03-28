@@ -3,9 +3,11 @@ package com.attendance.service.impl;
 import com.attendance.domain.UserAttendance;
 import com.attendance.repository.UserAttendanceRepository;
 import com.attendance.service.UserAttendanceService;
+import com.attendance.vo.UserAttendanceInterface;
 import com.attendance.vo.UserAttendanceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +49,10 @@ public class UserAttendanceServiceImpl implements UserAttendanceService {
     @Override
     public UserAttendance insert(UserAttendance userAttendance) {
         return userAttendanceReposiory.save(userAttendance);
+    }
+
+    @Override
+    public Page<UserAttendanceInterface> findAttendanceInterfaceList(Pageable pageable) {
+        return userAttendanceReposiory.findAttendanceInterfaceList(pageable);
     }
 }
