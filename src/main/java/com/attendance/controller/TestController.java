@@ -2,6 +2,8 @@ package com.attendance.controller;
 
 import com.attendance.common.utils.ResultVOUtil;
 import com.attendance.domain.UserAttendance;
+import com.attendance.domain.UserInfo;
+import com.attendance.mapper.UserInfoMapper;
 import com.attendance.service.UserAttendanceService;
 import com.attendance.vo.ResultVO;
 import com.attendance.vo.UserAttendanceInterface;
@@ -34,5 +36,14 @@ public class TestController {
         Page<UserAttendanceInterface> list=userAttendanceService.findAttendanceInterfaceList(request);
 
         return ResultVOUtil.success(list);
+    }
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
+    @RequestMapping("/getUsers")
+    public List<UserInfo> getUsers() {
+        List<UserInfo> users=userInfoMapper.getAll();
+        return users;
     }
 }
