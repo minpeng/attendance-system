@@ -7,6 +7,8 @@ import com.attendance.mapper.UserInfoMapper;
 import com.attendance.service.UserAttendanceService;
 import com.attendance.vo.ResultVO;
 import com.attendance.vo.UserAttendanceInterface;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,14 @@ public class TestController {
     public List<UserInfo> getUsers() {
         List<UserInfo> users=userInfoMapper.getAll();
         return users;
+    }
+
+    @RequestMapping("/page/list")
+    public Object getUsersPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                       @RequestParam(value = "size", defaultValue = "2") Integer size) {
+        PageHelper.startPage(page,size,"id desc");
+        List<UserInfo> users=userInfoMapper.getAll();
+        PageInfo<UserInfo> pageList = new PageInfo<>(users);
+        return pageList;
     }
 }
