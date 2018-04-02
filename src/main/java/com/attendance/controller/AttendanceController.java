@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,11 +45,14 @@ public class AttendanceController {
                                               Map<String, Object> map){
         UserInfo currentUser = userInfoService.findUserByUserName((String) SecurityUtils.getSubject().getPrincipal()) ;
         Long userId=currentUser.getId();
-        PageRequest request = new PageRequest(page - 1, size);
+        Sort sort = new Sort(Sort.Direction.DESC, "date_time");
+
+        PageRequest request = new PageRequest(page - 1, size,sort);
         Page<?> userAttendanceVOs = userAttendanceService.findList(userId,request);
 
         map.put("userAttendancePage", userAttendanceVOs);
         map.put("userAttendanceContent", UserAttendanceConvert.getUserAttendancePage(userAttendanceVOs));
+
         map.put("currentPage", page);
         map.put("size", size);
         return new ModelAndView("/attendance/list",map);

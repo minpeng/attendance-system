@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="attendance-system" />
+        <module name="babyFat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="attendance-system" target="1.8" />
+      <module name="babyFat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

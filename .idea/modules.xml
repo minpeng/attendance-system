@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/attendance-system.iml" filepath="$PROJECT_DIR$/attendance-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../babyFat/babyFat.iml" filepath="$PROJECT_DIR$/../babyFat/babyFat.iml" />
     </modules>
   </component>
 </project>
