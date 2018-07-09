@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.attendance.mapper")
+@EnableSwagger2
 public class AttendanceSystemApplication {
 
 	public static void main(String[] args) {
